@@ -1,20 +1,80 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<!-- The template displays the two component properties using double curly brace interpolation: -->
+<h1>Welcome to {{title}}</h1>
+    <h2>My favorite hero is: {{myHero}}</h2>
+    <!-- Example of Template Expression which performs the sum and convert the result to an string -->
+    <h3><p>The sum of 1 + 1 is {{1 + 1}}.</p></h3>
+
+    <!-- Example of Template Expression which performs the sum, invoke the function 
+      and convert the result to an string -->
+    <h3><p>The sum of 1 + 1 and getVal() is {{1 + 1 + getVal()}}.</p></h3>
+
+    <!-- Example of Template Statements i.e. Event Binding -->
+   <div><button (click)="changeTitle()">Change Title</button></div> 
+
+
+<!-- Example of Propert Binding -->
+<div><img [src]="heroImageUrl"></div>
+
+<button [disabled]="isUnchanged">Cancel is disabled</button>
+
+<!-- Example of Class Binding -->
+
+<!-- reset/override all class names with a binding 
+Bad Curly and Specail will be removed and one class badCurly will be applied because of class binding
+ -->
+<div class="bad curly special"
+     [class]="badCurly">Bad curly</div>
+
+<!-- toggle the "special" class on/off with a property -->
+<div [class.special]="isSpecial">The class binding is special</div>
+
+<!-- Example of Style Binding -->
+<div>
+  <button [style.color]="isSpecial ? 'red': 'green'">Red</button>
+  <button [style.background-color]="canSave ? 'cyan': 'grey'" >Save</button>
+</div>
+
+
+<!-- Example of Event Binding -->
+<div style="margin-top:20px">
+  <button (click)="buttonClickEvent()" (mouseenter)="mouseEnterEvents()" (mouseleave)="mouseLeaveEvents()"
+  [class.mouseenter]="isMouseIn" [class.mouseleave]="!isMouseIn"
+  >Click Event</button>
+ 
+ 
+</div>
+<div style="margin-top:20px">
+  <!-- Passing value with $event is dubious way to pass the value
+  It can't extract information without knowing more than it should about the HTML implementation.
+  That breaks the separation of concerns between the template (what the user sees) and the component (how the application processes user data) -->
+  <input type="text"  (keyup)="onKeyBoarEvent($event)"/>
+  <p>{{value}}</p>
+</div>
+
+<!-- Example of Template Reference Variable -->
+<div style="margin-top:20px">
+  <p><b>Template Reference Example</b></p>
+    <!-- Angular updates the bindings (and therefore the screen) 
+    only if the app does something in response to asynchronous events, such as keystrokes. 
+    This example code binds the keyup event to the number 0, 
+    the shortest template statement possible. While the statement does nothing useful, 
+    it satisfies Angular's requirement so that Angular will update the screen. -->
+    <input #box (keyup)="0">
+    <p>{{box.value}}</p>
+  </div>
+
+  <div>
+      <p><b>Two Way Data binding with out NgModel </b></p>
+     
+      <input [value]="bindValue" (input)="bindValue=$event.target.value" sytle="width:250px"/>
+      <p>{{bindValue}}</p>
+  </div>
+
+
+  <div>
+      <p><b>Two Way Data binding with  NgModel </b></p>
+     
+      <input [(ngModel)]="ngBinding" sytle="width:250px"/>
+      <p>{{ngBinding}}</p>
+  </div>
